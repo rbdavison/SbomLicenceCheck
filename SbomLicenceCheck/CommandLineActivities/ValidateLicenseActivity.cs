@@ -1,6 +1,6 @@
 ﻿using CommandLine;
-using SbomLicenceCheck;
 using ConsoleTables;
+using SbomLicenceCheck.Manifests;
 
 public class ValidateLicenseActivity
 {
@@ -16,7 +16,7 @@ public class ValidateLicenseActivity
 
     public static int Run(Options opts)
     {
-        var licensesFound = new CycloneDxSbom().GetComponentLicences(opts.bomFile);
+        var licensesFound = SoftwareManifest.ReadFile(opts.bomFile).GetComponentLicences().Result;
 
         var invalidLicenseFound = false;
 
@@ -35,8 +35,12 @@ public class ValidateLicenseActivity
 
         if (invalidLicenseFound)
         {
-            Console.WriteLine("Invalid Licenses Found.");
+            Console.WriteLine("Warning: Invalid Licenses Found.");
             table.Write(Format.MarkDown);
+        }
+        else
+        {
+            Console.WriteLine("Success: No Invalid Licenses Found.");
         }
 
         return invalidLicenseFound ? 1 : 0;

@@ -1,16 +1,37 @@
 ﻿using System.Xml;
+using SbomLicenceCheck.Common;
+using SbomLicenceCheck.Licenses;
 
-namespace SbomLicenceCheck
+namespace SbomLicenceCheck.Manifests
 {
-    internal class CycloneDxSbom
+    public class CycloneDxXmlSbom : ISoftwareManifest
     {
-        public IDictionary<string, List<License>> GetComponentLicences(string sbom)
+        private readonly string filename;
+
+        public CycloneDxXmlSbom(string filename)
+        {
+            this.filename = filename;
+        }
+
+        // Replace this with: https://github.com/CycloneDX/cyclonedx-dotnet-library
+
+        public Task<IDictionary<string, List<License>>> GetComponentLicences()
         {
             var licensesFound = new Dictionary<string, List<License>>();
 
-            var l = LicenseRegistry.Load();
+            if (File.Exists(filename) == false)
+            {
+                throw new InvalidOperationException($"File '{filename}' not found.");
+            }
+
+            var licenseRegistry = LicenseRegistry.Load();
             XmlDocument doc = new XmlDocument();
-            doc.Load(sbom);
+            doc.Load(filename);
+
+            if (doc.DocumentElement == null)
+            {
+                throw new InvalidOperationException("Document doesn't contain root node.");
+            }
 
             XmlNode root = doc.DocumentElement;
 
@@ -19,12 +40,17 @@ namespace SbomLicenceCheck
             nsmgr.AddNamespace("bom", "http://cyclonedx.org/schema/bom/1.4");
 
             // Get library components only.
-            XmlNodeList componentList = root.SelectNodes("/bom:bom/bom:components/bom:component[@type='library']", nsmgr);
+            XmlNodeList? componentList = root.SelectNodes("/bom:bom/bom:components/bom:component[@type='library']", nsmgr);
 
             if (componentList != null && componentList.Count > 0)
             {
                 foreach (XmlNode component in componentList)
                 {
+                    if (component == null)
+                    {
+                        continue;
+                    }
+
                     var componentName = component["name"]?.InnerText ?? "Unknown";
                     if (licensesFound.ContainsKey(componentName) == false)
                     {
@@ -37,14 +63,14 @@ namespace SbomLicenceCheck
                         foreach (XmlNode licence in licenceList)
                         {
                             var lincenseId = licence["id"]?.InnerText ?? "Unknown";
-                            var license = l.Licenses.SingleOrDefault(l => string.Compare(l.LicenseId, lincenseId, true) == 0);
+                            var license = licenseRegistry.Licenses.SingleOrDefault(l => string.Compare(l.LicenseId, lincenseId, true) == 0);
                             licensesFound[componentName].Add(license ?? new License { LicenseId = "Unknown", ReferenceNumber = -1 });
                         }
                     }
                 }
             }
 
-            return licensesFound;
+            return Task.FromResult(licensesFound as IDictionary<string, List<License>>);
         }
     }
 }

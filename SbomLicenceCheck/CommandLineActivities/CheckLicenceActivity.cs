@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using ConsoleTables;
-using SbomLicenceCheck;
+using SbomLicenceCheck.Manifests;
 
 public class CheckLicenceActivity
 {
@@ -22,7 +22,7 @@ public class CheckLicenceActivity
             return -1;
         }
 
-        var licensesFound = new CycloneDxSbom().GetComponentLicences(opts.bomFile);
+        var licensesFound = SoftwareManifest.ReadFile(opts.bomFile).GetComponentLicences().Result;
 
         var table = new ConsoleTable("Component", "Id", "Licence Id", "Osi Approved?");
         foreach (var component in licensesFound.Keys)
@@ -31,6 +31,11 @@ public class CheckLicenceActivity
             {
                 table.AddRow(component, license.ReferenceNumber, license.LicenseId, license.isOsiApproved);
             }
+        }
+
+        if (table.Rows.Any())
+        {
+
         }
 
         table.Write(Format.MarkDown);

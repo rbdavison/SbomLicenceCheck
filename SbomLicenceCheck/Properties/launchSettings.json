@@ -2,7 +2,7 @@
   "profiles": {
     "SbomLicenceCheck": {
       "commandName": "Project",
-      "commandLineArgs": "validate -b C:\\Source\\bae\\flask-examples\\cyclonedxold.fmt -i 212 151"
+      "commandLineArgs": "validate -b C:\\piptest\\sbom.json -i 317"
     }
   }
 }

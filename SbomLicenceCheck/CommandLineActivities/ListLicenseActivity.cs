@@ -1,6 +1,6 @@
 ﻿using CommandLine;
-using SbomLicenceCheck;
 using ConsoleTables;
+using SbomLicenceCheck.Licenses;
 
 public class ListLicenseActivity
 {
