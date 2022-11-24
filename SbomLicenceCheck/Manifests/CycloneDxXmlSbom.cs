@@ -1,4 +1,5 @@
 ﻿using System.Xml;
+using CycloneDX.Xml;
 using SbomLicenceCheck.Common;
 using SbomLicenceCheck.Licenses;
 
@@ -13,8 +14,6 @@ namespace SbomLicenceCheck.Manifests
             this.filename = filename;
         }
 
-        // Replace this with: https://github.com/CycloneDX/cyclonedx-dotnet-library
-
         public Task<IDictionary<string, List<License>>> GetComponentLicences()
         {
             var licensesFound = new Dictionary<string, List<License>>();
@@ -25,49 +24,25 @@ namespace SbomLicenceCheck.Manifests
             }
 
             var licenseRegistry = LicenseRegistry.Load();
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filename);
-
-            if (doc.DocumentElement == null)
+            
+            using (var fs = File.OpenRead(this.filename))
             {
-                throw new InvalidOperationException("Document doesn't contain root node.");
-            }
+                var bom = Serializer.Deserialize(fs);
 
-            XmlNode root = doc.DocumentElement;
-
-            // Add the namespace.  
-            XmlNamespaceManager nsmgr = new XmlNamespaceManager(doc.NameTable);
-            nsmgr.AddNamespace("bom", "http://cyclonedx.org/schema/bom/1.4");
-
-            // Get library components only.
-            XmlNodeList? componentList = root.SelectNodes("/bom:bom/bom:components/bom:component[@type='library']", nsmgr);
-
-            if (componentList != null && componentList.Count > 0)
-            {
-                foreach (XmlNode component in componentList)
+                foreach (var component in bom.Components)
                 {
-                    if (component == null)
+                    if (licensesFound.ContainsKey(component.Name) == false)
                     {
-                        continue;
+                        licensesFound[component.Name] = new List<License>();
                     }
 
-                    var componentName = component["name"]?.InnerText ?? "Unknown";
-                    if (licensesFound.ContainsKey(componentName) == false)
+                    foreach (var licence in component.Licenses)
                     {
-                        licensesFound[componentName] = new List<License>();
-                    }
-
-                    XmlNodeList licenceList = component.SelectNodes("bom:licenses/bom:license", nsmgr);
-                    if (licenceList != null && licenceList.Count > 0)
-                    {
-                        foreach (XmlNode licence in licenceList)
-                        {
-                            var lincenseId = licence["id"]?.InnerText ?? "Unknown";
-                            var license = licenseRegistry.Licenses.SingleOrDefault(l => string.Compare(l.LicenseId, lincenseId, true) == 0);
-                            licensesFound[componentName].Add(license ?? new License { LicenseId = "Unknown", ReferenceNumber = -1 });
-                        }
+                        var license = licenseRegistry.Licenses.SingleOrDefault(l => string.Compare(l.LicenseId, licence.License.Id, true) == 0);
+                        licensesFound[component.Name].Add(license ?? new License { LicenseId = "Unknown", ReferenceNumber = -1 });
                     }
                 }
+
             }
 
             return Task.FromResult(licensesFound as IDictionary<string, List<License>>);
