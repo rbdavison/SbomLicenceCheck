@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using SbomLicenceCheck.UI.CommandLine;
 
 var result = Parser.Default.ParseArguments<
         CheckLicenceActivity.Options,

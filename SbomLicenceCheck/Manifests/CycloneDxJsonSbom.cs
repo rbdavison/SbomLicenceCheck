@@ -1,6 +1,7 @@
 ﻿using CycloneDX.Json;
 using SbomLicenceCheck.Common;
 using SbomLicenceCheck.Licenses;
+using System.Globalization;
 
 namespace SbomLicenceCheck.Manifests
 {
@@ -18,7 +19,7 @@ namespace SbomLicenceCheck.Manifests
         public IDictionary<string, List<License>> ComponentLicences 
         {
             get; private set;
-        }
+        } = new Dictionary<string, List<License>>();
 
         public async Task Load()
         {
@@ -35,7 +36,8 @@ namespace SbomLicenceCheck.Manifests
 
                 foreach (var licence in component.Licenses)
                 {
-                    var license = this.licenseRegistry.Licenses.SingleOrDefault(l => string.Compare(l.LicenseId, licence.License.Id, true) == 0);
+                    var license = this.licenseRegistry.Licenses.SingleOrDefault(
+                        l => string.Compare(l.LicenseId, licence.License.Id, true, CultureInfo.InvariantCulture) == 0);
                     licensesFound[component.Name].Add(license ?? License.UnknownLicense);
                 }
             }

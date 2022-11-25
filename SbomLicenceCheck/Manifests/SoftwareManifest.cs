@@ -17,11 +17,11 @@ namespace SbomLicenceCheck.Manifests
             
             using (var fs = File.OpenRead(filename))
             {
-                if (filename.EndsWith(".xml"))
+                if (filename.EndsWith(".xml", StringComparison.InvariantCulture))
                 {
                     sbomManifest = new CycloneDxXmlSbom(licenseRegistry, fs);
                 }
-                else if (filename.EndsWith(".json"))
+                else if (filename.EndsWith(".json", StringComparison.InvariantCulture))
                 {
                     sbomManifest = new CycloneDxJsonSbom(licenseRegistry, fs);
                 }

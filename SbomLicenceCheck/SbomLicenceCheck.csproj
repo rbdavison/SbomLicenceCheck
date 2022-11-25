@@ -7,8 +7,10 @@
     <Nullable>enable</Nullable>
 	<PackageType>DotnetTool</PackageType>
 	<PackAsTool>true</PackAsTool>
-	<ToolCommandName>SbomLicenseCheck</ToolCommandName>
+	<ToolCommandName>SbomLicenceCheck</ToolCommandName>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<NeutralLanguage>en</NeutralLanguage>
+	<AnalysisLevel>6.0-recommended</AnalysisLevel>
   </PropertyGroup>
 
   <ItemGroup>

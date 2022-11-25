@@ -19,7 +19,7 @@ namespace SbomLicenceCheck.Utils
         /// <param name="folder"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static Stream ReadResource(Assembly assembly, string folder, string fileName)
+        public static Stream? ReadResource(Assembly assembly, string folder, string fileName)
         {
             string resourcePath;
             var assemblyName = assembly.GetName().Name;
