@@ -5,7 +5,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-	  <PackageType>DotnetTool</PackageType>
+	<PackageType>DotnetTool</PackageType>
 	<PackAsTool>true</PackAsTool>
 	<ToolCommandName>SbomLicenseCheck</ToolCommandName>
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
