@@ -1,0 +1,129 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:6289291a-8645-4092-b62c-a2baeed4a946",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-11-11T11:31:14Z",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.55.0"
+      }
+    ],
+    "component": {
+      "bom-ref": "c977505b55b063fb",
+      "type": "file",
+      "name": "Pillow-8.0.0.tar.gz"
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/pillow@8.0.0?package-id=2b548f5e2adfb551",
+      "type": "library",
+      "author": "Alex Clark (PIL Fork Author) \u003caclark@python-pillow.org\u003e",
+      "name": "Pillow",
+      "version": "8.0.0",
+      "licenses": [
+        {
+          "license": {
+            "id": "HPND"
+          }
+        }
+      ],
+      "cpe": "cpe:2.3:a:alex_clark_\\(pil_fork_author\\):python-Pillow:8.0.0:*:*:*:*:*:*:*",
+      "purl": "pkg:pypi/Pillow@8.0.0",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "PythonPackageMetadata"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:alex_clark_\\(pil_fork_author\\):python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:alex_clark_\\(pil_fork_author\\):Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-Pillow:python-Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-Pillow:python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_Pillow:python-Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_Pillow:python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:Pillow:python-Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:Pillow:python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:aclark:python-Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:aclark:python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-Pillow:Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_Pillow:Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:Pillow:Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:aclark:Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:Pillow:8.0.0:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "C:\\Users\\guypritchard\\AppData\\Local\\Temp\\syft-archive-contents-1286577543\\Pillow-8.0.0\\src\\Pillow.egg-info\\PKG-INFO"
+        }
+      ]
+    }
+  ]
+}

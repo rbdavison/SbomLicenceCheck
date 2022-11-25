@@ -47,7 +47,7 @@ namespace SbomLicenceCheck.Utils
             using var stream = ReadResource(assembly, folder, fileName);
             if (stream == null)
             {
-                return null;
+                throw new FileNotFoundException($"{assembly.GetName()},{folder},{fileName}");
             }
 
             using var streamReader = new StreamReader(stream);

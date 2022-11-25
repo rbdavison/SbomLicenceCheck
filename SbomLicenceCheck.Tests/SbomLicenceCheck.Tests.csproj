@@ -9,11 +9,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="TestManifests\alpine.cyclonedx.xml" />
+    <None Remove="TestManifests\pillow.cyclonedx.json" />
+    <None Remove="TestManifests\wheel.cyclonedx.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestManifests\alpine.cyclonedx.xml" />
+    <EmbeddedResource Include="TestManifests\pillow.cyclonedx.json" />
+    <EmbeddedResource Include="TestManifests\wheel.cyclonedx.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
     <PackageReference Include="coverlet.collector" Version="3.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SbomLicenceCheck\SbomLicenceCheck.csproj" />
   </ItemGroup>
 
 </Project>

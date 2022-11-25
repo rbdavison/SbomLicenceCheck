@@ -4,6 +4,11 @@ namespace SbomLicenceCheck.Common
 {
     public interface ISoftwareManifest
     {
-        Task<IDictionary<string, List<License>>> GetComponentLicences();
+        Task Load();
+
+        IDictionary<string, List<License>> ComponentLicences
+        {
+            get;
+        }
     }
 }

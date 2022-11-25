@@ -1,22 +1,39 @@
 ﻿using SbomLicenceCheck.Common;
+using SbomLicenceCheck.Licenses;
 
 namespace SbomLicenceCheck.Manifests
 {
     public class SoftwareManifest
     {
-        public static ISoftwareManifest ReadFile(string filename)
+        public static async Task<ISoftwareManifest> ReadFile(string filename)
         {
-            if (filename.EndsWith(".xml"))
+            ISoftwareManifest? sbomManifest = null;
+            if (File.Exists(filename) == false)
             {
-                return new CycloneDxXmlSbom(filename);
+                throw new FileNotFoundException(filename);
             }
 
-            if (filename.EndsWith(".json"))
+            var licenseRegistry = LicenseRegistry.Load();
+            
+            using (var fs = File.OpenRead(filename))
             {
-                return new CycloneDxJsonSbom(filename);
+                if (filename.EndsWith(".xml"))
+                {
+                    sbomManifest = new CycloneDxXmlSbom(licenseRegistry, fs);
+                }
+                else if (filename.EndsWith(".json"))
+                {
+                    sbomManifest = new CycloneDxJsonSbom(licenseRegistry, fs);
+                }
+                else 
+                {
+                    throw new InvalidOperationException("Unrecognised file extension.");
+                }
+
+                await sbomManifest.Load();
             }
 
-            throw new InvalidOperationException("Unrecognised file extension.");
+            return sbomManifest;
         }
     }
 }

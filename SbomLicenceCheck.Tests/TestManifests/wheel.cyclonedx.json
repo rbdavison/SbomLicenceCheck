@@ -1,0 +1,137 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:cf6cc55b-b491-4790-9b90-1dc82c4f5e23",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2022-11-11T19:01:24Z",
+    "tools": [
+      {
+        "vendor": "anchore",
+        "name": "syft",
+        "version": "0.60.3"
+      }
+    ],
+    "component": {
+      "bom-ref": "fbd1c66279d1f",
+      "type": "file",
+      "name": "/output/wheel-0.38.4-py3-none-any.zip"
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "pkg:pypi/wheel@0.38.4?package-id=764804855ff19351",
+      "type": "library",
+      "author": "Daniel Holth \u003cdholth@fastmail.fm\u003e",
+      "name": "wheel",
+      "version": "0.38.4",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "cpe": "cpe:2.3:a:daniel_holth:python-wheel:0.38.4:*:*:*:*:*:*:*",
+      "purl": "pkg:pypi/wheel@0.38.4",
+      "properties": [
+        {
+          "name": "syft:package:foundBy",
+          "value": "python-package-cataloger"
+        },
+        {
+          "name": "syft:package:language",
+          "value": "python"
+        },
+        {
+          "name": "syft:package:metadataType",
+          "value": "PythonPackageMetadata"
+        },
+        {
+          "name": "syft:package:type",
+          "value": "python"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:daniel_holth:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-wheel:python-wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-wheel:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_wheel:python-wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_wheel:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:dholth:python-wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:dholth:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python-wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:daniel_holth:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python-wheel:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python_wheel:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wheel:python-wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wheel:python_wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:dholth:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:python:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:cpe23",
+          "value": "cpe:2.3:a:wheel:wheel:0.38.4:*:*:*:*:*:*:*"
+        },
+        {
+          "name": "syft:location:0:path",
+          "value": "wheel-0.38.4.dist-info/METADATA"
+        },
+        {
+          "name": "syft:location:1:path",
+          "value": "wheel-0.38.4.dist-info/RECORD"
+        },
+        {
+          "name": "syft:location:2:path",
+          "value": "wheel-0.38.4.dist-info/top_level.txt"
+        }
+      ]
+    }
+  ]
+}

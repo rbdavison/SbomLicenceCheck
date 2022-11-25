@@ -1,10 +1,12 @@
-﻿using SbomLicenceCheck.Utils;
+﻿using SbomLicenceCheck.Common;
+using SbomLicenceCheck.Utils;
 using System.Reflection;
 using System.Text.Json;
 
 namespace SbomLicenceCheck.Licenses
 {
-    public class LicenseRegistry
+
+    public class LicenseRegistry : ILicenseRegistry
     {
         public string? LicenseListVersion { get; set; } = "Unknown";
         public IEnumerable<License> Licenses { get; set; } = Enumerable.Empty<License>();

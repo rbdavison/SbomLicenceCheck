@@ -14,7 +14,7 @@ public class CheckLicenceActivity
         public bool osiApprovedOnly { get; set; }
     }
 
-    public static int Run(Options opts)
+    public static async Task<int> Run(Options opts)
     {
         if (string.IsNullOrEmpty(opts.bomFile))
         {
@@ -22,7 +22,7 @@ public class CheckLicenceActivity
             return -1;
         }
 
-        var licensesFound = SoftwareManifest.ReadFile(opts.bomFile).GetComponentLicences().Result;
+        var licensesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
 
         var table = new ConsoleTable("Component", "Id", "Licence Id", "Osi Approved?");
         foreach (var component in licensesFound.Keys)
@@ -31,11 +31,6 @@ public class CheckLicenceActivity
             {
                 table.AddRow(component, license.ReferenceNumber, license.LicenseId, license.isOsiApproved);
             }
-        }
-
-        if (table.Rows.Any())
-        {
-
         }
 
         table.Write(Format.MarkDown);

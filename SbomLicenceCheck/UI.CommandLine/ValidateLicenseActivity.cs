@@ -14,9 +14,9 @@ public class ValidateLicenseActivity
         public IEnumerable<int>? validLicenses { get; set; }
     }
 
-    public static int Run(Options opts)
+    public static async Task<int> Run(Options opts)
     {
-        var licensesFound = SoftwareManifest.ReadFile(opts.bomFile).GetComponentLicences().Result;
+        var licensesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
 
         var invalidLicenseFound = false;
 

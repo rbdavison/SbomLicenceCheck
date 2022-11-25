@@ -1,15 +1,19 @@
 ﻿using CommandLine;
 
-Parser.Default.ParseArguments<
-        CheckLicenceActivity.Options, 
+var result = Parser.Default.ParseArguments<
+        CheckLicenceActivity.Options,
         ListLicenseActivity.Options,
         ValidateLicenseActivity.Options>(args)
-    .WithParsed<CheckLicenceActivity.Options>(co => CheckLicenceActivity.Run(co))
-    .WithParsed<ListLicenseActivity.Options>(lo => ListLicenseActivity.Run(lo))
-    .WithParsed<ValidateLicenseActivity.Options>(vo => ValidateLicenseActivity.Run(vo))
-    .WithNotParsed(errors => HandleError(errors));
+        .MapResult(
+            (CheckLicenceActivity.Options co) => CheckLicenceActivity.Run(co).Result,
+            (ListLicenseActivity.Options lo) => ListLicenseActivity.Run(lo),
+            (ValidateLicenseActivity.Options vo) => ValidateLicenseActivity.Run(vo).Result,
+            errors => HandleError(errors));
 
-void HandleError(IEnumerable<Error> errors)
+Environment.Exit(result);
+
+int HandleError(IEnumerable<Error> errors)
 {
     Console.WriteLine("Incorrect arguments, use --help");
+    return int.MinValue;
 }
