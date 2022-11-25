@@ -47,4 +47,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Package
-      run: dotnet pack --configuration Release --version-suffix $GITVERSION_SEMVER
+      run: dotnet pack --configuration Release -p:PackageVersion=$GITVERSION_SEMVER -p:Version=$GITVERSION_SEMVER --output nugetpkgs
+      
+    - name: Publish
+      run: dotnet nuget push nugetpkgs/*.nupkg -s 'https://api.nuget.org/v3/index.json' -k ${{ secrets.PUBLISHSBOMTOOLNUGETKEY }} 
