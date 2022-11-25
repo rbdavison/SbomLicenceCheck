@@ -50,4 +50,4 @@ jobs:
       run: dotnet pack --configuration Release -p:PackageVersion=$GITVERSION_SEMVER
       
     - name: Publish
-      run: dotnet nuget push "*.nupkg"  -k $PUBLISHSBOMTOOLNUGETKEY 
+      run: dotnet nuget push "*.nupkg"  -k  ${{ secrets.PUBLISHSBOMTOOLNUGETKEY }}
