@@ -6,7 +6,7 @@ namespace SbomLicenceCheck.UI.CommandLine
 {
     public class CheckLicenceActivity
     {
-        [Verb("check", true, HelpText = "Check the licence type.")]
+        [Verb("check", false, HelpText = "Check the licence type.")]
         public class Options
         {
             [Option('b', "bom", Required = true, HelpText = "Set bom filename.")]

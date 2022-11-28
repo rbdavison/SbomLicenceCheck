@@ -1,11 +1,13 @@
 ﻿using CommandLine;
 using SbomLicenceCheck.UI.CommandLine;
 
-var result = Parser.Default.ParseArguments<
+    
+var result = Parser.Default
+    .ParseArguments<
         CheckLicenceActivity.Options,
         ListLicenceActivity.Options,
         ValidateLicenceActivity.Options>(args)
-        .MapResult(
+    .MapResult(
             (CheckLicenceActivity.Options co) => CheckLicenceActivity.Run(co).Result,
             (ListLicenceActivity.Options lo) => ListLicenceActivity.Run(lo),
             (ValidateLicenceActivity.Options vo) => ValidateLicenceActivity.Run(vo).Result,

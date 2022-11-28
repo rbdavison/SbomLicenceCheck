@@ -1,8 +1,12 @@
-﻿namespace SbomLicenceCheck.Licences
+﻿using System.Text.Json.Serialization;
+
+namespace SbomLicenceCheck.Licences
 {
     public class Licence
     {
         public int ReferenceNumber { get; set; }
+
+        [JsonPropertyName("licenseId")]
         public string? LicenceId { get; set; }
         public bool isOsiApproved { get; set; }
 

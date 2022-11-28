@@ -1,8 +1,7 @@
 {
   "profiles": {
     "SbomLicenceCheck": {
-      "commandName": "Project",
-      "commandLineArgs": "validate -b C:\\piptest\\cyclonedx.xml -i 317"
+      "commandName": "Project"
     }
   }
 }
