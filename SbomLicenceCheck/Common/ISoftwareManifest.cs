@@ -1,4 +1,4 @@
-﻿using SbomLicenceCheck.Licenses;
+﻿using SbomLicenceCheck.Licences;
 
 namespace SbomLicenceCheck.Common
 {
@@ -6,7 +6,7 @@ namespace SbomLicenceCheck.Common
     {
         Task Load();
 
-        IDictionary<string, List<License>> ComponentLicences
+        IDictionary<string, List<Licence>> ComponentLicences
         {
             get;
         }

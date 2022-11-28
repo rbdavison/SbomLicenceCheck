@@ -1,5 +1,5 @@
 ﻿using SbomLicenceCheck.Common;
-using SbomLicenceCheck.Licenses;
+using SbomLicenceCheck.Licences;
 
 namespace SbomLicenceCheck.Manifests
 {
@@ -13,17 +13,17 @@ namespace SbomLicenceCheck.Manifests
                 throw new FileNotFoundException(filename);
             }
 
-            var licenseRegistry = LicenseRegistry.Load();
+            var licenceRegistry = LicenceRegistry.Load();
             
             using (var fs = File.OpenRead(filename))
             {
                 if (filename.EndsWith(".xml", StringComparison.InvariantCulture))
                 {
-                    sbomManifest = new CycloneDxXmlSbom(licenseRegistry, fs);
+                    sbomManifest = new CycloneDxXmlSbom(licenceRegistry, fs);
                 }
                 else if (filename.EndsWith(".json", StringComparison.InvariantCulture))
                 {
-                    sbomManifest = new CycloneDxJsonSbom(licenseRegistry, fs);
+                    sbomManifest = new CycloneDxJsonSbom(licenceRegistry, fs);
                 }
                 else 
                 {

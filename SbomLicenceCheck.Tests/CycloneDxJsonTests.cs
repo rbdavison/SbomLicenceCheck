@@ -1,7 +1,7 @@
 using CycloneDX.Models;
 using Moq;
 using SbomLicenceCheck.Common;
-using SbomLicenceCheck.Licenses;
+using SbomLicenceCheck.Licences;
 using SbomLicenceCheck.Manifests;
 
 namespace SbomLicenceCheck.Tests
@@ -11,7 +11,7 @@ namespace SbomLicenceCheck.Tests
         [Test]
         public async Task BasicSbomReading()
         {
-            var registry = LicenseRegistry.Load();
+            var registry = LicenceRegistry.Load();
 
             var sbomFormat = new CycloneDxJsonSbom(registry, TestManifests.PillowCycloneDxJson);
             await sbomFormat.Load();
@@ -23,7 +23,7 @@ namespace SbomLicenceCheck.Tests
         [Test]
         public async Task BasicSbomReading2()
         {
-            var registry = LicenseRegistry.Load();
+            var registry = LicenceRegistry.Load();
 
             var sbomFormat = new CycloneDxJsonSbom(registry, TestManifests.WheelCycloneDxJson);
             await sbomFormat.Load();

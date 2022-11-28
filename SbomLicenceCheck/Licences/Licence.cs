@@ -1,18 +1,18 @@
-﻿namespace SbomLicenceCheck.Licenses
+﻿namespace SbomLicenceCheck.Licences
 {
-    public class License
+    public class Licence
     {
         public int ReferenceNumber { get; set; }
-        public string? LicenseId { get; set; }
+        public string? LicenceId { get; set; }
         public bool isOsiApproved { get; set; }
 
-        public static License UnknownLicense
+        public static Licence UnknownLicence
         {
             get
             {
-                return new License 
+                return new Licence 
                 { 
-                    LicenseId = "Unknown", 
+                    LicenceId = "Unknown", 
                     ReferenceNumber = -1, 
                     isOsiApproved = true 
                 };

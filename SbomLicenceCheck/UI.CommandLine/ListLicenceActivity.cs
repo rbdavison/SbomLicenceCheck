@@ -1,25 +1,25 @@
 ﻿using CommandLine;
 using ConsoleTables;
-using SbomLicenceCheck.Licenses;
+using SbomLicenceCheck.Licences;
 
 namespace SbomLicenceCheck.UI.CommandLine
 {
-    public class ListLicenseActivity
+    public class ListLicenceActivity
     {
         [Verb("list", false, HelpText = "List and filter known licence types.")]
         public class Options
         {
-            [Option('o', "osiApproved", Required = false, HelpText = "Only display OSI approved licenses.")]
+            [Option('o', "osiApproved", Required = false, HelpText = "Only display OSI approved Licences.")]
             public bool osiApprovedOnly { get; set; }
         }
 
         public static int Run(Options opts)
         {
-            var l = LicenseRegistry.Load();
+            var l = LicenceRegistry.Load();
 
-            Console.WriteLine($"List version {l.LicenseListVersion}");
+            Console.WriteLine($"List version {l.LicenceListVersion}");
 
-            var licences = l.Licenses;
+            var licences = l.Licences;
 
             if (opts.osiApprovedOnly)
             {
@@ -28,9 +28,9 @@ namespace SbomLicenceCheck.UI.CommandLine
 
             var table = new ConsoleTable("id", "Licence Id", "Osi Approved?");
 
-            foreach (var license in licences)
+            foreach (var Licence in licences)
             {
-                table.AddRow(license.ReferenceNumber, license.LicenseId, license.isOsiApproved);
+                table.AddRow(Licence.ReferenceNumber, Licence.LicenceId, Licence.isOsiApproved);
             }
 
             table.Write(Format.MarkDown);

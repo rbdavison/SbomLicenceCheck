@@ -19,7 +19,7 @@ namespace SbomLicenceCheck.Utils
         /// <param name="folder"></param>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static Stream? ReadResource(Assembly assembly, string folder, string fileName)
+        public static Stream ReadResource(Assembly assembly, string folder, string fileName)
         {
             string resourcePath;
             var assemblyName = assembly.GetName().Name;
@@ -32,7 +32,7 @@ namespace SbomLicenceCheck.Utils
                 resourcePath = $"{assemblyName}.{fileName}";
             }
 
-            return assembly.GetManifestResourceStream(resourcePath);
+            return assembly.GetManifestResourceStream(resourcePath) ?? throw new FileNotFoundException($"{assembly.GetName()},{folder ?? string.Empty},{fileName}");
         }
 
         /// <summary>
@@ -45,11 +45,6 @@ namespace SbomLicenceCheck.Utils
         public static string ReadResourceAsString(Assembly assembly, string folder, string fileName)
         {
             using var stream = ReadResource(assembly, folder, fileName);
-            if (stream == null)
-            {
-                throw new FileNotFoundException($"{assembly.GetName()},{folder},{fileName}");
-            }
-
             using var streamReader = new StreamReader(stream);
             return streamReader.ReadToEnd();
         }

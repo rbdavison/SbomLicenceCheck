@@ -1,48 +1,48 @@
 ﻿using CycloneDX.Xml;
 using SbomLicenceCheck.Common;
-using SbomLicenceCheck.Licenses;
+using SbomLicenceCheck.Licences;
 using System.Globalization;
 
 namespace SbomLicenceCheck.Manifests
 {
     public class CycloneDxXmlSbom : ISoftwareManifest
     {
-        private readonly ILicenseRegistry registry;
+        private readonly ILicenceRegistry registry;
         private readonly Stream file;
 
-        public IDictionary<string, List<License>> ComponentLicences
+        public IDictionary<string, List<Licence>> ComponentLicences
         {
             get; private set;
-        } = new Dictionary<string, List<License>>();
+        } = new Dictionary<string, List<Licence>>();
 
-        public CycloneDxXmlSbom(ILicenseRegistry licenseRegistry, Stream file)
+        public CycloneDxXmlSbom(ILicenceRegistry LicenceRegistry, Stream file)
         {
-            this.registry = licenseRegistry ?? throw new ArgumentNullException(nameof(licenseRegistry));
+            this.registry = LicenceRegistry ?? throw new ArgumentNullException(nameof(LicenceRegistry));
             this.file = file ?? throw new ArgumentNullException(nameof(file));
         }
 
         public Task Load()
         {
-            var licensesFound = new Dictionary<string, List<License>>();
+            var LicencesFound = new Dictionary<string, List<Licence>>();
 
             var bom = Serializer.Deserialize(this.file);
 
             foreach (var component in bom.Components)
             {
-                if (licensesFound.ContainsKey(component.Name) == false)
+                if (LicencesFound.ContainsKey(component.Name) == false)
                 {
-                    licensesFound[component.Name] = new List<License>();
+                    LicencesFound[component.Name] = new List<Licence>();
                 }
 
                 foreach (var licence in component.Licenses)
                 {
-                    var license = this.registry.Licenses.SingleOrDefault(
-                        l => string.Compare(l.LicenseId, licence.License.Id, true, CultureInfo.InvariantCulture) == 0);
-                    licensesFound[component.Name].Add(license ?? License.UnknownLicense);
+                    var Licence = this.registry.Licences.SingleOrDefault(
+                        l => string.Compare(l.LicenceId, licence.License.Id, true, CultureInfo.InvariantCulture) == 0);
+                    LicencesFound[component.Name].Add(Licence ?? Licence.UnknownLicence);
                 }
             }
 
-            this.ComponentLicences = licensesFound;
+            this.ComponentLicences = LicencesFound;
 
             return Task.CompletedTask;
         }

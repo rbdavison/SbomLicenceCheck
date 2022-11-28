@@ -1,11 +1,11 @@
-﻿using SbomLicenceCheck.Licenses;
+﻿using SbomLicenceCheck.Licences;
 
 namespace SbomLicenceCheck.Common
 {
-    public interface ILicenseRegistry
+    public interface ILicenceRegistry
     {
-        public string? LicenseListVersion { get; }
+        public string? LicenceListVersion { get; }
 
-        public IEnumerable<License> Licenses { get; }
+        public IEnumerable<Licence> Licences { get; }
     }
 }

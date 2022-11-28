@@ -12,7 +12,7 @@ namespace SbomLicenceCheck.UI.CommandLine
             [Option('b', "bom", Required = true, HelpText = "Set bom filename.")]
             public string? bomFile { get; set; }
 
-            [Option('o', "osiApproved", Required = false, HelpText = "Only allow OSI approved licenses.")]
+            [Option('o', "osiApproved", Required = false, HelpText = "Only allow OSI approved Licences.")]
             public bool osiApprovedOnly { get; set; }
         }
 
@@ -24,14 +24,14 @@ namespace SbomLicenceCheck.UI.CommandLine
                 return -1;
             }
 
-            var licensesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            var LicencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
 
             var table = new ConsoleTable("Component", "Id", "Licence Id", "Osi Approved?");
-            foreach (var component in licensesFound.Keys)
+            foreach (var component in LicencesFound.Keys)
             {
-                foreach (var license in licensesFound[component])
+                foreach (var Licence in LicencesFound[component])
                 {
-                    table.AddRow(component, license.ReferenceNumber, license.LicenseId, license.isOsiApproved);
+                    table.AddRow(component, Licence.ReferenceNumber, Licence.LicenceId, Licence.isOsiApproved);
                 }
             }
 

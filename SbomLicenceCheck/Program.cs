@@ -3,12 +3,12 @@ using SbomLicenceCheck.UI.CommandLine;
 
 var result = Parser.Default.ParseArguments<
         CheckLicenceActivity.Options,
-        ListLicenseActivity.Options,
-        ValidateLicenseActivity.Options>(args)
+        ListLicenceActivity.Options,
+        ValidateLicenceActivity.Options>(args)
         .MapResult(
             (CheckLicenceActivity.Options co) => CheckLicenceActivity.Run(co).Result,
-            (ListLicenseActivity.Options lo) => ListLicenseActivity.Run(lo),
-            (ValidateLicenseActivity.Options vo) => ValidateLicenseActivity.Run(vo).Result,
+            (ListLicenceActivity.Options lo) => ListLicenceActivity.Run(lo),
+            (ValidateLicenceActivity.Options vo) => ValidateLicenceActivity.Run(vo).Result,
             errors => HandleError(errors));
 
 Environment.Exit(result);
