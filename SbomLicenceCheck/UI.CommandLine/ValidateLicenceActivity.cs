@@ -12,8 +12,11 @@ namespace SbomLicenceCheck.UI.CommandLine
             [Option('b', "bom", Required = true, HelpText = "Set bom filename.")]
             public string? bomFile { get; set; }
 
-            [Option('i', "ids", Required = true, HelpText = "Specify valid licence reference numbers.")]
-            public IEnumerable<int>? validLicences { get; set; }
+            [Option('i', "ids", Required = false, HelpText = "Specify valid licence reference numbers.")]
+            public IEnumerable<int> validLicenceIds { get; set; } = Enumerable.Empty<int>();
+
+            [Option('n', "names", Required = false, HelpText = "Specify valid licence names.")]
+            public IEnumerable<string> validLicenceNames { get; set; } = Enumerable.Empty<string>();
         }
 
         public static async Task<int> Run(Options opts)
@@ -23,7 +26,7 @@ namespace SbomLicenceCheck.UI.CommandLine
                 throw new ArgumentException("bomfile not specified");
             }
 
-            if (opts.validLicences == null || !opts.validLicences.Any())
+            if (!opts.validLicenceIds.Any() && !opts.validLicenceNames.Any())
             {
                 throw new ArgumentException("valid licences not specified");
             }
@@ -37,7 +40,8 @@ namespace SbomLicenceCheck.UI.CommandLine
             {
                 foreach (var Licence in LicencesFound[component])
                 {
-                    if (opts.validLicences.Contains(Licence.ReferenceNumber) == false)
+                    if (opts.validLicenceIds.Contains(Licence.ReferenceNumber) == false &&  
+                        opts.validLicenceNames.Contains(Licence.LicenceId) == false)
                     {
                         table.AddRow(component, Licence.ReferenceNumber, Licence.LicenceId, Licence.isOsiApproved);
                         invalidLicenceFound = true;
