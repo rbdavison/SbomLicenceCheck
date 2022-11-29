@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
 	<PackageType>DotnetTool</PackageType>
 	<PackAsTool>true</PackAsTool>
+	<PackageProjectUrl>https://github.com/crew-briggs/SbomLicenceCheck</PackageProjectUrl>
 	<ToolCommandName>SbomLicenceCheck</ToolCommandName>
 	<PackageLicenceExpression>MIT</PackageLicenceExpression>
 	<NeutralLanguage>en</NeutralLanguage>
