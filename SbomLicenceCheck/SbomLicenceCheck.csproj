@@ -8,6 +8,9 @@
 	<PackageType>DotnetTool</PackageType>
 	<PackAsTool>true</PackAsTool>
 	<PackageProjectUrl>https://github.com/crew-briggs/SbomLicenceCheck</PackageProjectUrl>
+	<PackageDescription>
+		A Dotnet Command Line Tool Using a Syft generated CyloneDX formatted SBOM (JSON and XML) to display and validate OSS licences.
+	</PackageDescription>
 	<ToolCommandName>SbomLicenceCheck</ToolCommandName>
 	<PackageLicenceExpression>MIT</PackageLicenceExpression>
 	<NeutralLanguage>en</NeutralLanguage>
