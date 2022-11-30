@@ -108,3 +108,25 @@ e.g.
 
   version     Display version information.
 ```
+
+### Output Formats
+
+By default **Markdown** is the output format for all data, but **Json** is also supported.
+
+Specify it with ```-f``` or ```-format```
+
+```SbomLicence validate -b <sbom file> -n MIT -f Json```
+
+e.g.
+
+```terminal
+{
+  "Pillow": [
+    {
+      "ReferenceNumber": 28,
+      "licenseId": "HPND",
+      "isOsiApproved": true
+    }
+  ]
+}
+```
