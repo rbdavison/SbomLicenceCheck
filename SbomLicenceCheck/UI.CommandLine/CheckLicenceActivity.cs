@@ -1,6 +1,6 @@
 ﻿using CommandLine;
-using ConsoleTables;
 using SbomLicenceCheck.Manifests;
+using SbomLicenceCheck.Output;
 
 namespace SbomLicenceCheck.UI.CommandLine
 {
@@ -14,6 +14,9 @@ namespace SbomLicenceCheck.UI.CommandLine
 
             [Option('o', "osiApproved", Required = false, HelpText = "Only allow OSI approved Licences.")]
             public bool osiApprovedOnly { get; set; }
+
+            [Option('f', "format", Required = false, Default = OutputFormat.Markdown)]
+            public OutputFormat format { get; set; }
         }
 
         public static async Task<int> Run(Options opts)
@@ -24,19 +27,11 @@ namespace SbomLicenceCheck.UI.CommandLine
                 return -1;
             }
 
-            var LicencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            var output = OutputFactory.FormattedOutput(opts.format);
 
-            var table = new ConsoleTable("Component", "Id", "Licence Id", "Osi Approved?");
-            foreach (var component in LicencesFound.Keys)
-            {
-                foreach (var Licence in LicencesFound[component])
-                {
-                    table.AddRow(component, Licence.ReferenceNumber, Licence.LicenceId, Licence.isOsiApproved);
-                }
-            }
-
-            table.Write(Format.MarkDown);
-
+            var licencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            output.RenderLicences(licencesFound);
+            
             return 0;
         }
 

@@ -1,6 +1,9 @@
 ﻿using CommandLine;
 using ConsoleTables;
+using SbomLicenceCheck.Common;
 using SbomLicenceCheck.Licences;
+using SbomLicenceCheck.Manifests;
+using SbomLicenceCheck.Output;
 
 namespace SbomLicenceCheck.UI.CommandLine
 {
@@ -11,6 +14,9 @@ namespace SbomLicenceCheck.UI.CommandLine
         {
             [Option('o', "osiApproved", Required = false, HelpText = "Only display OSI approved Licences.")]
             public bool osiApprovedOnly { get; set; }
+
+            [Option('f', "format", Required = false, Default = OutputFormat.Markdown)]
+            public OutputFormat format { get; set; }
         }
 
         public static int Run(Options opts)
@@ -25,6 +31,10 @@ namespace SbomLicenceCheck.UI.CommandLine
             {
                 licences = licences.Where(l => l.isOsiApproved);
             }
+
+            var output = OutputFactory.FormattedOutput(opts.format);
+
+            output.RenderLicences(licences);
 
             var table = new ConsoleTable("id", "Licence Id", "Osi Approved?");
 

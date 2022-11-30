@@ -1,6 +1,8 @@
 ﻿using CommandLine;
 using ConsoleTables;
+using SbomLicenceCheck.Licences;
 using SbomLicenceCheck.Manifests;
+using SbomLicenceCheck.Output;
 
 namespace SbomLicenceCheck.UI.CommandLine
 {
@@ -17,6 +19,9 @@ namespace SbomLicenceCheck.UI.CommandLine
 
             [Option('n', "names", Required = false, HelpText = "Specify valid licence names.")]
             public IEnumerable<string> validLicenceNames { get; set; } = Enumerable.Empty<string>();
+
+            [Option('f', "format", Required = false, Default = OutputFormat.Markdown)]
+            public OutputFormat format { get; set; }
         }
 
         public static async Task<int> Run(Options opts)
@@ -31,35 +36,34 @@ namespace SbomLicenceCheck.UI.CommandLine
                 throw new ArgumentException("valid licences not specified");
             }
 
-            var LicencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            var output = OutputFactory.FormattedOutput(opts.format);
+            var licencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
 
-            var invalidLicenceFound = false;
-
-            var table = new ConsoleTable("Component", "Id", "Licence Id", "Osi Approved?");
-            foreach (var component in LicencesFound.Keys)
+            var invalidLicences = new Dictionary<string, List<Licence>>();
+            
+            foreach (var component in licencesFound.Keys)
             {
-                foreach (var Licence in LicencesFound[component])
+                foreach (var Licence in licencesFound[component])
                 {
                     if (opts.validLicenceIds.Contains(Licence.ReferenceNumber) == false &&  
                         opts.validLicenceNames.Contains(Licence.LicenceId) == false)
                     {
-                        table.AddRow(component, Licence.ReferenceNumber, Licence.LicenceId, Licence.isOsiApproved);
-                        invalidLicenceFound = true;
+                        if (invalidLicences.ContainsKey(component) == false)
+                        {
+                            invalidLicences[component] = new List<Licence>();
+                        }
+
+                        invalidLicences[component].Add(Licence);
                     }
                 }
             }
 
-            if (invalidLicenceFound)
+            if (invalidLicences.Any())
             {
-                Console.WriteLine("Warning: Invalid Licences Found.");
-                table.Write(Format.MarkDown);
-            }
-            else
-            {
-                Console.WriteLine("Success: No Invalid Licences Found.");
+                output.RenderLicences(invalidLicences);
             }
 
-            return invalidLicenceFound ? 1 : 0;
+            return invalidLicences.Any() ? 1 : 0;
         }
 
         public static void HandleError(IEnumerable<Error> errors)
