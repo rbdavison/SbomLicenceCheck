@@ -51,3 +51,8 @@ jobs:
       
     - name: Publish
       run: dotnet nuget push nugetpkgs/*.nupkg -s 'https://api.nuget.org/v3/index.json' -k ${{ secrets.PUBLISHSBOMTOOLNUGETKEY }} 
+    - name: Bump version and push tag
+      uses: laputansoft/github-tag-action@v4.6
+      with:
+        github_token: ${{ env.github-token }}
+        tag: $GITVERSION_SEMVER
