@@ -3,7 +3,7 @@ using SbomLicenceCheck.Licences;
 
 namespace SbomLicenceCheck.Manifests
 {
-    public class SoftwareManifest
+    public class SoftwareManifestFactory
     {
         public static async Task<ISoftwareManifest> ReadFile(string filename)
         {

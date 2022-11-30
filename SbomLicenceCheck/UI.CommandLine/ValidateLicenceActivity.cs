@@ -37,7 +37,7 @@ namespace SbomLicenceCheck.UI.CommandLine
             }
 
             var output = OutputFactory.FormattedOutput(opts.format);
-            var licencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            var licencesFound = (await SoftwareManifestFactory.ReadFile(opts.bomFile)).ComponentLicences;
 
             var invalidLicences = new Dictionary<string, List<Licence>>();
             

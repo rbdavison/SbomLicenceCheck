@@ -29,7 +29,7 @@ namespace SbomLicenceCheck.UI.CommandLine
 
             var output = OutputFactory.FormattedOutput(opts.format);
 
-            var licencesFound = (await SoftwareManifest.ReadFile(opts.bomFile)).ComponentLicences;
+            var licencesFound = (await SoftwareManifestFactory.ReadFile(opts.bomFile)).ComponentLicences;
             output.RenderLicences(licencesFound);
             
             return 0;
