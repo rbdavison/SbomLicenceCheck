@@ -34,11 +34,14 @@ namespace SbomLicenceCheck.Manifests
                     LicencesFound[component.Name] = new List<Licence>();
                 }
 
-                foreach (var licence in component.Licenses)
+                if (component.Licenses != null)
                 {
-                    var Licence = this.registry.Licences.SingleOrDefault(
-                        l => string.Compare(l.LicenceId, licence.License.Id, true, CultureInfo.InvariantCulture) == 0);
-                    LicencesFound[component.Name].Add(Licence ?? Licence.UnknownLicence);
+                    foreach (var licence in component.Licenses)
+                    {
+                        var Licence = this.registry.Licences.SingleOrDefault(
+                            l => string.Compare(l.LicenceId, licence.License.Id, true, CultureInfo.InvariantCulture) == 0);
+                        LicencesFound[component.Name].Add(Licence ?? Licence.UnknownLicence);
+                    }
                 }
             }
 

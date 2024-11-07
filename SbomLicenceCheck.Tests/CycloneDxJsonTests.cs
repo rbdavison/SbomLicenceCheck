@@ -1,6 +1,3 @@
-using CycloneDX.Models;
-using Moq;
-using SbomLicenceCheck.Common;
 using SbomLicenceCheck.Licences;
 using SbomLicenceCheck.Manifests;
 

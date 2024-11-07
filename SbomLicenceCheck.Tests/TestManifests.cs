@@ -1,10 +1,5 @@
 ﻿using SbomLicenceCheck.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SbomLicenceCheck.Tests
 {
@@ -26,6 +21,14 @@ namespace SbomLicenceCheck.Tests
             get
             {
                 return ResourceHelper.ReadResource(Assembly.GetExecutingAssembly(), TestManifests.ManifestsDirectory, "pillow.cyclonedx.json");
+            }
+        }
+
+        public static Stream CycloneDxSchema16Xml
+        {
+            get
+            {
+                return ResourceHelper.ReadResource(Assembly.GetExecutingAssembly(), TestManifests.ManifestsDirectory, "sbomlicensecheck.cyclonedx.xml");
             }
         }
 
